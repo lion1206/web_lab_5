@@ -37,13 +37,16 @@ def load_user(user_id):
 
 @app.before_request
 def log_visit():
-    """Logs every visit to a page."""
+    # Пропустить логирование, если таблица еще не существует
+    if not db.inspect(db.engine).has_table('visit_log'):
+        return
+
     path = request.path
     user_id = current_user.is_authenticated and current_user.id or None
     visit_log = VisitLog(path=path, user_id=user_id)
     db.session.add(visit_log)
     db.session.commit()
-    
+
 # Routes
 @app.route('/')
 def index():
@@ -215,4 +218,4 @@ app.register_blueprint(reports_bp)  # Register the Blueprint HERE
 
 
 if __name__ == '__main__':
-    app.run() # Запустить приложение
+    app.run(debug=True) # Запустить приложение
