@@ -5,7 +5,7 @@ from flask_login import LoginManager, current_user, login_user, logout_user, log
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 from datetime import datetime
-from forms import RegistrationForm, LoginForm, CreateUserForm, EditUserForm, ChangePasswordForm
+from forms import RegistrationForm, LoginForm, CreateUserForm, EditUserForm, ChangePasswordForm, AdminEditProfileForm
 from models import User, Role, VisitLog  # Important: Import VisitLog for consistency
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
